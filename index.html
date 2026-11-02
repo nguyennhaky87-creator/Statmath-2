@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>STATMATH - Thống kê Toán 12</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">📊 STATMATH</div>
+
+    <nav>
+
+        <a href="#home">Trang chủ</a>
+
+        <a href="#input">Nhập liệu</a>
+
+        <a href="#results">Thống kê</a>
+
+        <a href="#chart">Biểu đồ</a>
+
+        <a href="#guide">Hướng dẫn</a>
+
+    </nav>
+
+</header>
+
+<main>
+
+    <section class="hero" id="home">
+
+        <div>
+
+            <span class="tag">TOÁN HỌC 12 • STATISTICS</span>
+
+            <h1>Khám phá dữ liệu<br>
+
+                <span>theo cách thông minh!</span>
+
+            </h1>
+
+            <p>
+
+                Công cụ thống kê mẫu số liệu ghép nhóm.
+
+                Nhập dữ liệu, tính toán và trực quan hóa
+
+                kết quả chỉ trong vài giây.
+
+            </p>
+
+            <a href="#input" class="main-btn">Bắt đầu ngay →</a>
+
+        </div>
+
+        <div class="hero-icon">📈</div>
+
+    </section>
+
+    <section class="section" id="input">
+
+        <div class="section-title">
+
+            <span class="tag">01 / DATA INPUT</span>
+
+            <h2>Nhập bảng số liệu</h2>
+
+            <p>Điền cận dưới, cận trên và tần số của từng nhóm.</p>
+
+        </div>
+
+        <div class="panel">
+
+            <div class="toolbar">
+
+                <h3>📋 Bảng phân bố tần số</h3>
+
+                <div>
+
+                    <button class="small-btn" onclick="addRow()">
+
+                        + Thêm nhóm
+
+                    </button>
+
+                    <button class="small-btn secondary"
+
+                        onclick="loadExample()">
+
+                        Dữ liệu mẫu
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Nhóm</th>
+
+                            <th>Cận dưới</th>
+
+                            <th>Cận trên</th>
+
+                            <th>Tần số (nᵢ)</th>
+
+                            <th></th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="dataBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="input-footer">
+
+                <div>
+
+                    Tổng số quan sát:
+
+                    <strong id="totalCount">40</strong>
+
+                </div>
+
+                <button class="main-btn" onclick="calculate()">
+
+                    ✨ Phân tích dữ liệu
+
+                </button>
+
+            </div>
+
+            <p id="error" class="error"></p>
+
+        </div>
+
+    </section>
+
+    <section class="section" id="results">
+
+        <div class="section-title">
+
+            <span class="tag">02 / STATISTICAL RESULTS</span>
+
+            <h2>Kết quả thống kê</h2>
+
+            <p>Các số đặc trưng được tính tự động từ dữ liệu đã nhập.</p>
+
+        </div>
+
+        <div class="result-grid">
+
+            <div class="result-card purple">
+
+                <span>Số trung bình</span>
+
+                <h3 id="mean">33.50</h3>
+
+                <small>x̄</small>
+
+            </div>
+
+            <div class="result-card pink">
+
+                <span>Trung vị</span>
+
+                <h3 id="median">35.00</h3>
+
+                <small>Q₂</small>
+
+            </div>
+
+            <div class="result-card blue">
+
+                <span>Tứ phân vị thứ nhất</span>
+
+                <h3 id="q1">26.25</h3>
+
+                <small>Q₁</small>
+
+            </div>
+
+            <div class="result-card orange">
+
+                <span>Tứ phân vị thứ ba</span>
+
+                <h3 id="q3">42.50</h3>
+
+                <small>Q₃</small>
+
+            </div>
+
+            <div class="result-card green">
+
+                <span>Phương sai</span>
+
+                <h3 id="variance">137.75</h3>
+
+                <small>s²</small>
+
+            </div>
+
+            <div class="result-card cyan">
+
+                <span>Độ lệch chuẩn</span>
+
+                <h3 id="deviation">11.74</h3>
+
+                <small>s</small>
+
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <h3>📑 Bảng phân tích chi tiết</h3>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Nhóm</th>
+
+                            <th>Giá trị đại diện</th>
+
+                            <th>Tần số</th>
+
+                            <th>Tần số tích lũy</th>
+
+                            <th>nᵢxᵢ</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="detailBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <h3>🧠 Quá trình tính toán</h3>
+
+            <div id="explanation" class="explanation">
+
+                Nhập dữ liệu và nhấn "Phân tích dữ liệu"
+
+                để xem lời giải chi tiết.
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="section" id="chart">
+
+        <div class="section-title">
+
+            <span class="tag">03 / DATA VISUALIZATION</span>
+
+            <h2>Biểu đồ thống kê</h2>
+
+            <p>Quan sát sự phân bố tần số của các nhóm dữ liệu.</p>
+
+        </div>
+
+        <div class="panel">
+
+            <div class="toolbar">
+
+                <h3>📊 Biểu đồ tần số</h3>
+
+                <span class="tag">FREQUENCY CHART</span>
+
+            </div>
+
+            <canvas id="frequencyChart"></canvas>
+
+        </div>
+
+    </section>
+
+    <section class="section" id="guide">
+
+        <div class="section-title">
+
+            <span class="tag">04 / LEARNING GUIDE</span>
+
+            <h2>Công thức cần nhớ</h2>
+
+            <p>Tổng hợp kiến thức thống kê mẫu số liệu ghép nhóm.</p>
+
+        </div>
+
+        <div class="guide-grid">
+
+            <div class="guide-card">
+
+                <h3>① Số trung bình</h3>
+
+                <p class="formula">
+
+                    x̄ = (Σ nᵢxᵢ) / n
+
+                </p>
+
+                <p>xᵢ là giá trị đại diện của nhóm thứ i.</p>
+
+            </div>
+
+            <div class="guide-card">
+
+                <h3>② Trung vị</h3>
+
+                <p class="formula">
+
+                    Mₑ = L + [(n/2 - F)/f] × h
+
+                </p>
+
+                <p>L: cận dưới nhóm chứa trung vị.</p>
+
+            </div>
+
+            <div class="guide-card">
+
+                <h3>③ Tứ phân vị</h3>
+
+                <p class="formula">
+
+                    Qₖ = L + [(kn/4 - F)/f] × h
+
+                </p>
+
+                <p>Áp dụng với k = 1 hoặc k = 3.</p>
+
+            </div>
+
+            <div class="guide-card">
+
+                <h3>④ Phương sai</h3>
+
+                <p class="formula">
+
+                    s² = Σnᵢ(xᵢ - x̄)² / n
+
+                </p>
+
+                <p>Đo mức độ phân tán của dữ liệu.</p>
+
+            </div>
+
+            <div class="guide-card">
+
+                <h3>⑤ Độ lệch chuẩn</h3>
+
+                <p class="formula">
+
+                    s = √s²
+
+                </p>
+
+                <p>Là căn bậc hai của phương sai.</p>
+
+            </div>
+
+            <div class="guide-card">
+
+                <h3>⑥ Giá trị đại diện</h3>
+
+                <p class="formula">
+
+                    xᵢ = (aᵢ + aᵢ₊₁) / 2
+
+                </p>
+
+                <p>Là trung điểm của mỗi khoảng lớp.</p>
+
+            </div>
+
+        </div>
+
+        <div class="note">
+
+            💡 Lưu ý: Các công thức trên áp dụng cho mẫu số liệu
+
+            ghép nhóm. Kết quả là các giá trị xấp xỉ dựa trên
+
+            giá trị đại diện của từng nhóm.
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+
+    <h3>📊 STATMATH</h3>
+
+    <p>Công cụ hỗ trợ học tập Toán học 12</p>
+
+    <p>Designed for learning • 2026</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
